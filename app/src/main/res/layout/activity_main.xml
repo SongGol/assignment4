@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,69 +7,13 @@
     android:background="@drawable/game_background"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/game_pause_start_iv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="7dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_pause" />
-
-        <LinearLayout
-            android:id="@+id/lo_one"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/grey_border"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/lo_two"/>
-
-        <LinearLayout
-            android:id="@+id/lo_two"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/grey_border"
-            app:layout_constraintStart_toEndOf="@id/lo_one"
-            app:layout_constraintEnd_toStartOf="@id/lo_three"/>
-
-        <LinearLayout
-            android:id="@+id/lo_three"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/grey_border"
-            app:layout_constraintStart_toEndOf="@id/lo_two"
-            app:layout_constraintEnd_toStartOf="@id/lo_four"/>
-
-        <LinearLayout
-            android:id="@+id/lo_four"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/grey_border"
-            app:layout_constraintStart_toEndOf="@id/lo_three"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/game_title_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/game_title_tv"
-            android:textSize="30sp"
-            android:textColor="@color/dark_red"
-            android:textStyle="bold"
-            android:layout_marginTop="30dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</FrameLayout>
+    <Button
+        android:id="@+id/tmp_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="게임창 이동"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

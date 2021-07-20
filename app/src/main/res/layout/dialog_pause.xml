@@ -1,128 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/transparent_black">
-
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/pause_start_lo"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/grey_background"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:paddingStart="50dp"
-        app:layout_constraintBottom_toTopOf="@id/pause_restart_lo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent_black">
 
 
-        <ImageView
-            android:id="@+id/pause_start_iv"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pause_start_lo"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/grey_background"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:paddingStart="50dp"
+            app:layout_constraintBottom_toTopOf="@id/pause_restart_lo"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_play" />
+            app:layout_constraintVertical_chainStyle="packed">
 
-        <TextView
-            android:id="@+id/pause_start_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/pause_start_tv"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pause_start_iv"
-            app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/pause_start_iv"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_play" />
+
+            <TextView
+                android:id="@+id/pause_start_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/pause_start_tv"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pause_start_iv"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pause_restart_lo"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/grey_background"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:paddingStart="50dp"
+            app:layout_constraintBottom_toTopOf="@id/pause_return_lo"
+            app:layout_constraintEnd_toEndOf="@+id/pause_start_lo"
+            app:layout_constraintStart_toStartOf="@+id/pause_start_lo"
+            app:layout_constraintTop_toBottomOf="@id/pause_start_lo">
+
+
+            <ImageView
+                android:id="@+id/pause_restart_iv"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_restart" />
+
+            <TextView
+                android:id="@+id/pause_restart_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="@string/pause_restart_tv"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pause_restart_iv"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/pause_return_lo"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:orientation="horizontal"
+            android:paddingStart="50dp"
+            android:padding="5dp"
+            android:background="@drawable/grey_background"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@id/pause_start_lo"
+            app:layout_constraintEnd_toEndOf="@id/pause_start_lo"
+            app:layout_constraintTop_toBottomOf="@id/pause_restart_lo"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+
+            <ImageView
+                android:id="@+id/pause_return_iv"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_return" />
+
+            <TextView
+                android:id="@+id/pause_return_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pause_return_tv"
+                android:textSize="20sp"
+                android:textColor="@color/white"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/pause_return_iv"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/pause_restart_lo"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/grey_background"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:paddingStart="50dp"
-        app:layout_constraintBottom_toTopOf="@id/pause_return_lo"
-        app:layout_constraintEnd_toEndOf="@+id/pause_start_lo"
-        app:layout_constraintStart_toStartOf="@+id/pause_start_lo"
-        app:layout_constraintTop_toBottomOf="@id/pause_start_lo">
-
-
-        <ImageView
-            android:id="@+id/pause_restart_iv"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_restart" />
-
-        <TextView
-            android:id="@+id/pause_restart_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="@string/pause_restart_tv"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pause_restart_iv"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/pause_return_lo"
-        android:layout_width="0dp"
-        android:layout_height="70dp"
-        android:orientation="horizontal"
-        android:paddingStart="50dp"
-        android:padding="10dp"
-        android:background="@drawable/grey_background"
-        android:layout_marginTop="5dp"
-        app:layout_constraintStart_toStartOf="@id/pause_start_lo"
-        app:layout_constraintEnd_toEndOf="@id/pause_start_lo"
-        app:layout_constraintTop_toBottomOf="@id/pause_restart_lo"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-
-        <ImageView
-            android:id="@+id/pause_return_iv"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_return" />
-
-        <TextView
-            android:id="@+id/pause_return_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pause_return_tv"
-            android:textSize="24sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:layout_marginStart="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/pause_return_iv"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

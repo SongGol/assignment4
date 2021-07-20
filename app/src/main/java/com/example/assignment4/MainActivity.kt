@@ -1,5 +1,6 @@
 package com.example.assignment4
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.assignment4.databinding.ActivityMainBinding
@@ -13,6 +14,9 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-
+        binding.tmpBtn.setOnClickListener{
+            val intent = Intent(this, GameActivity::class.java)
+            startActivity(intent)
+        }
     }
 }
