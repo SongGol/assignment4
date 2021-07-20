@@ -19,7 +19,7 @@
             android:layout_marginEnd="7dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/pause" />
+            app:srcCompat="@drawable/ic_pause" />
 
         <LinearLayout
             android:id="@+id/lo_one"
@@ -56,6 +56,19 @@
             android:background="@drawable/grey_border"
             app:layout_constraintStart_toEndOf="@id/lo_three"
             app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/game_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/game_title_tv"
+            android:textSize="30sp"
+            android:textColor="@color/dark_red"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
