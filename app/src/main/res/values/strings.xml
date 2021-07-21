@@ -2,6 +2,6 @@
     <string name="app_name">assignment4</string>
     <string name="game_title_tv">Faded</string>
     <string name="pause_start_tv">계속</string>
-    <string name="pause_restart_tv">재생</string>
-    <string name="pause_return_tv">반환</string>
+    <string name="pause_restart_tv">재시작</string>
+    <string name="pause_return_tv">종료</string>
 </resources>

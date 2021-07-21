@@ -45,4 +45,8 @@ class Tile(var x: Int = 0, var y: Int = 0, res: Resources) {
         }
         return clickedTile
     }
+
+    fun getCollisionShape() : Rect {
+        return Rect(x, y, x + width, y + width)
+    }
 }

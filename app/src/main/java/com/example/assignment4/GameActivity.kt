@@ -32,7 +32,9 @@ class GameActivity : AppCompatActivity() {
             Log.d("GameActivity x", point.x.toString() + ", y:" + point.y.toString())
         }
 
-        setContentView(gameView)
+        binding.gameFrameLo.addView(gameView)
+
+        setContentView(binding.root)
 
 
         //Dialog 띄우기

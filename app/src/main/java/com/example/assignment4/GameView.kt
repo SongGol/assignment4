@@ -6,11 +6,10 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
 import android.util.Log
-import android.view.Display
-import android.view.MotionEvent
-import android.view.SurfaceHolder
-import android.view.SurfaceView
-import java.lang.Exception
+import android.view.*
+import android.widget.ImageView
+import java.util.*
+import kotlin.collections.ArrayList
 
 class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : SurfaceView(mContext) , SurfaceHolder.Callback, Runnable {
     private val mHolder = holder
@@ -18,6 +17,7 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
     private var tiles = ArrayList<Tile>()
     private var paint = Paint()
 
+    private var speed: Int = 10
     private lateinit var tThread: Thread
     private var isPlaying = false
     private var background1: Background
@@ -46,6 +46,8 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
     override fun run() {
 
         while (isPlaying) {
+            val num = Random().nextInt(8)
+
             update()
             draw()
             sleep()
@@ -78,7 +80,7 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
             canvas.drawBitmap(background1.background, background1.x.toFloat(), background1.y.toFloat(), paint)
             canvas.drawBitmap(background2.background, background2.x.toFloat(), background2.y.toFloat(), paint)
 
-            drawLine(canvas, paint, screenX.toFloat(), screenY.toFloat())
+            //drawLine(canvas, paint, screenX.toFloat(), screenY.toFloat())
 
             canvas.drawBitmap(mTile.getTile(), mTile.x.toFloat(),  mTile.y.toFloat(), paint)
 
@@ -117,6 +119,11 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
         canvas.drawLine(x/2, 0f, x/2+1, y, paint)
         canvas.drawLine(x/4, 0f, x/4+1, y, paint)
         canvas.drawLine(x/4*3, 0f, x/4*3+1, y, paint)
+    }
+
+    private fun makeButton(context: Context) : View {
+        val view = ImageView(context)
+        return view
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
