@@ -3,7 +3,7 @@ package com.example.assignment4
 import android.content.res.Resources
 import android.graphics.*
 
-class Tile(var x: Int = 0, var y: Int = 0, res: Resources) {
+class Tile(var x: Int = 0, var y: Int = 0, res: Resources, type: Int = 0) {
     var isClicked = false
     var width: Int
     var height: Int
@@ -22,6 +22,12 @@ class Tile(var x: Int = 0, var y: Int = 0, res: Resources) {
 
         defaultTile = Bitmap.createScaledBitmap(defaultTile, width, height, false)
         clickedTile = Bitmap.createScaledBitmap(clickedTile, width, height, false)
+
+        when(type) {
+            1 -> x += width
+            2 -> x += width * 2
+            3 -> x += width * 3
+        }
 
         y -= height
     }

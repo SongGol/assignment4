@@ -15,10 +15,11 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
     private val mHolder = holder
     private lateinit var mThread: GameThread
     var tiles = ArrayList<Tile>()
+    var trash = ArrayList<Tile>()
     private var paint = Paint()
 
-    private var startTime: Long
-    private var speed: Int = 10
+    private val startTime: Long = System.currentTimeMillis()
+    private var speed: Int = 20
     private lateinit var tThread: Thread
     private var isPlaying = false
     private var background1: Background
@@ -31,7 +32,6 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
     }
 
     init {
-        startTime = System.currentTimeMillis()
         mHolder.addCallback(this)
 
         screenRatioX = 1080f / screenX
@@ -43,12 +43,15 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
         background2.y = screenY
 
         mTile = Tile(res = resources)
+        tiles.add(Tile(res = resources))
     }
 
     override fun run() {
 
         while (isPlaying) {
-            val num = Random().nextInt(8)
+            if (tiles[tiles.size - 1].y > 0) {
+                tiles.add(Tile(res = resources, type = 2))
+            }
 
             update()
             draw()
@@ -69,6 +72,17 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
 
         mTile.y += (speed * screenRatioY).toInt()
         if (mTile.y > screenY) mTile.y = -mTile.height
+
+        Log.d("GameView before tiles size", tiles.size.toString())
+        for (item in tiles) {
+            item.y += (speed * screenRatioY).toInt()
+            if (item.y > screenY) trash.add(item)
+        }
+        Log.d("GameView after tiles size", tiles.size.toString())
+        for (item in trash) {
+            tiles.remove(item)
+        }
+        trash.clear()
     }
 
     private fun draw() {
@@ -84,7 +98,11 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
 
             //drawLine(canvas, paint, screenX.toFloat(), screenY.toFloat())
 
-            canvas.drawBitmap(mTile.getTile(), mTile.x.toFloat(),  mTile.y.toFloat(), paint)
+            //canvas.drawBitmap(mTile.getTile(), mTile.x.toFloat(),  mTile.y.toFloat(), paint)
+
+            for (item in tiles) {
+                canvas.drawBitmap(item.getTile(), item.x.toFloat(),  item.y.toFloat(), paint)
+            }
 
             mHolder.unlockCanvasAndPost(canvas)
         }
@@ -92,7 +110,7 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
 
     private fun sleep() {
         try {
-            Thread.sleep(17)
+            Thread.sleep(10)
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
@@ -153,6 +171,7 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         Log.d("GameView", "SurfaceDestroyed()")
         mThread.bExit = true
+        //mThread.join()
         /*
         while(true) {
             try {
@@ -212,25 +231,10 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
 
         override fun run() {
             super.run()
-            var canvas: Canvas
-
-            ex@while (!bExit) {
-                for (item in tiles) {
-                    item.move()
-
-                }
-
-                synchronized(mHolder) {
-                    canvas = mHolder.lockCanvas()
-
-                    for (item in tiles) {
-                        item.draw(canvas)
-                    }
-
-
-                    mHolder.unlockCanvasAndPost(canvas)
-                }
+            if (tiles[tiles.size - 1].y > 0) {
+                tiles.add(Tile(res = resources))
             }
+
         }
     }
 }

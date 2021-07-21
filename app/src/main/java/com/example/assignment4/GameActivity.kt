@@ -49,6 +49,11 @@ class GameActivity : AppCompatActivity() {
                     if(gameView.mTile.isTouchIn(curX?.toInt(), curY?.toInt())) {
                         gameView.mTile.isClicked = true
                     }
+                    for (item in gameView.tiles) {
+                        if (item.isTouchIn(curX?.toInt(), curY?.toInt())) {
+                            item.isClicked = true
+                        }
+                    }
                 } else if (action == MotionEvent.ACTION_MOVE) {    //누르고 움직였을 때
                     Log.d("손가락 움직임", "$curX, $curY")
                 } else if (action == MotionEvent.ACTION_UP) {    //누른걸 뗐을 때
