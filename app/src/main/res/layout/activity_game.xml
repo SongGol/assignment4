@@ -13,6 +13,7 @@
         android:background="@drawable/game_background"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/game_constraint_lo"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

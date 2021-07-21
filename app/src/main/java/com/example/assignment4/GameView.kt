@@ -14,15 +14,16 @@ import kotlin.collections.ArrayList
 class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : SurfaceView(mContext) , SurfaceHolder.Callback, Runnable {
     private val mHolder = holder
     private lateinit var mThread: GameThread
-    private var tiles = ArrayList<Tile>()
+    var tiles = ArrayList<Tile>()
     private var paint = Paint()
 
+    private var startTime: Long
     private var speed: Int = 10
     private lateinit var tThread: Thread
     private var isPlaying = false
     private var background1: Background
     private var background2: Background
-    private var mTile: Tile
+    var mTile: Tile
 
     companion object {
         var screenRatioX: Float = 0f
@@ -30,6 +31,7 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
     }
 
     init {
+        startTime = System.currentTimeMillis()
         mHolder.addCallback(this)
 
         screenRatioX = 1080f / screenX
@@ -65,7 +67,7 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
             background2.y = screenY
         }
 
-        mTile.y += (10 * screenRatioY).toInt()
+        mTile.y += (speed * screenRatioY).toInt()
         if (mTile.y > screenY) mTile.y = -mTile.height
     }
 
