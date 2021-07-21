@@ -5,18 +5,25 @@ import android.graphics.*
 
 class Tile(var x: Int = 0, var y: Int = 0, res: Resources) {
     var isClicked = false
+    var width: Int
+    var height: Int
     private var defaultTile = BitmapFactory.decodeResource(res, R.drawable.ic_tile_default)
     private var clickedTile = BitmapFactory.decodeResource(res, R.drawable.ic_tile_clicked)
 
     init {
-        var width = defaultTile.width
-        var height = defaultTile.height
+        width = defaultTile.width
+        height = defaultTile.height
+
+        width /= 3
+        height /= 3
 
         width *= GameView.screenRatioX.toInt()
         height *= GameView.screenRatioY.toInt()
 
         defaultTile = Bitmap.createScaledBitmap(defaultTile, width, height, false)
         clickedTile = Bitmap.createScaledBitmap(clickedTile, width, height, false)
+
+        y -= height
     }
 
     fun move(width: Int = 0, height: Int = 0) {

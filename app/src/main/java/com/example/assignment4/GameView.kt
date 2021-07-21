@@ -64,7 +64,7 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
         }
 
         mTile.y += (10 * screenRatioY).toInt()
-        if (mTile.y > screenY) mTile.y = 0
+        if (mTile.y > screenY) mTile.y = -mTile.height
     }
 
     private fun draw() {
@@ -77,6 +77,8 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
             //canvas.drawBitmap(background2.background, null, rect2, paint)
             canvas.drawBitmap(background1.background, background1.x.toFloat(), background1.y.toFloat(), paint)
             canvas.drawBitmap(background2.background, background2.x.toFloat(), background2.y.toFloat(), paint)
+
+            drawLine(canvas, paint, screenX.toFloat(), screenY.toFloat())
 
             canvas.drawBitmap(mTile.getTile(), mTile.x.toFloat(),  mTile.y.toFloat(), paint)
 
@@ -106,6 +108,15 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
+    }
+
+    private fun drawLine(canvas: Canvas, paint: Paint, x: Float, y: Float) {
+        paint.color = Color.WHITE
+        paint.style = Paint.Style.FILL
+        paint.strokeWidth = 2f
+        canvas.drawLine(x/2, 0f, x/2+1, y, paint)
+        canvas.drawLine(x/4, 0f, x/4+1, y, paint)
+        canvas.drawLine(x/4*3, 0f, x/4*3+1, y, paint)
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
