@@ -22,8 +22,12 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
     private var isPlaying = false
     private var background1: Background
     private var background2: Background
-    private var screenRatioX: Float = 0f
-    private var screenRatioY: Float = 0f
+    private var mTile: Tile
+
+    companion object {
+        var screenRatioX: Float = 0f
+        var screenRatioY: Float = 0f
+    }
 
     init {
         mHolder.addCallback(this)
@@ -36,6 +40,7 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
 
         background2.y = screenY
 
+        mTile = Tile(res = resources)
     }
 
     override fun run() {
@@ -54,11 +59,12 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
         if (background1.y + background1.background.height < 0) {
             background1.y = screenY
         }
-
         if (background2.y + background2.background.height < 0) {
             background2.y = screenY
         }
 
+        mTile.y += (10 * screenRatioY).toInt()
+        if (mTile.y > screenY) mTile.y = 0
     }
 
     private fun draw() {
@@ -71,6 +77,8 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
             //canvas.drawBitmap(background2.background, null, rect2, paint)
             canvas.drawBitmap(background1.background, background1.x.toFloat(), background1.y.toFloat(), paint)
             canvas.drawBitmap(background2.background, background2.x.toFloat(), background2.y.toFloat(), paint)
+
+            canvas.drawBitmap(mTile.getTile(), mTile.x.toFloat(),  mTile.y.toFloat(), paint)
 
             mHolder.unlockCanvasAndPost(canvas)
         }
@@ -147,9 +155,13 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
         return super.onTouchEvent(event)
         Log.d("GameView onTouchEvent()", event?.action.toString())
 
+        if (event?.action == MotionEvent.ACTION_BUTTON_PRESS) {
+            Log.d("GameView onTouchEvent()", "button pressed")
+        }
+
         if (event?.action == MotionEvent.ACTION_DOWN) {
             synchronized(mHolder) {
-                tiles.add(Tile(5.0f, 5.0f))
+                //tiles.add(Tile(5.0f, 5.0f))
             }
             true
         }
