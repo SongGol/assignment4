@@ -19,7 +19,7 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
     private var paint = Paint()
 
     private val startTime: Long = System.currentTimeMillis()
-    private var speed: Int = 20
+    private var speed: Int = 10
     private lateinit var tThread: Thread
     private var isPlaying = false
     private var background1: Background
@@ -50,7 +50,20 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
 
         while (isPlaying) {
             if (tiles[tiles.size - 1].y > 0) {
-                tiles.add(Tile(res = resources, type = 2))
+                when (Random().nextInt(10)) {
+                    0, 6 -> tiles.add(Tile(res = resources, type = 0))
+                    1, 7 -> tiles.add(Tile(res = resources, type = 1))
+                    2, 8 -> tiles.add(Tile(res = resources, type = 2))
+                    3, 9 -> tiles.add(Tile(res = resources, type = 3))
+                    4 -> {
+                        tiles.add(Tile(res = resources, type = 0))
+                        tiles.add(Tile(res = resources, type = 2))
+                    }
+                    5 -> {
+                        tiles.add(Tile(res = resources, type = 1))
+                        tiles.add(Tile(res = resources, type = 3))
+                    }
+                }
             }
 
             update()
@@ -110,7 +123,7 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
 
     private fun sleep() {
         try {
-            Thread.sleep(10)
+            Thread.sleep(1)
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
@@ -123,7 +136,6 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
     }
 
     fun pause() {
-
         try {
             isPlaying = false
             tThread.join()
@@ -207,34 +219,27 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
         false
     }
 
-    inner class TestThread(): Thread() {
-        override fun run() {
-            super.run()
-            var canvas: Canvas
-            for (i in 1..100) {
-                synchronized(mHolder) {
-                    canvas = mHolder.lockCanvas()
-
-                    val paint = Paint()
-                    paint.setColor(Color.RED)
-                    canvas.drawRect(0f + i.toFloat(), 0f + i.toFloat(), 100f + i.toFloat(), 100f + i.toFloat(), paint)
-
-                    mHolder.unlockCanvasAndPost(canvas)
-                }
-            }
-
-        }
-    }
-
     inner class GameThread() : Thread() {
         var bExit = false
 
         override fun run() {
             super.run()
             if (tiles[tiles.size - 1].y > 0) {
-                tiles.add(Tile(res = resources))
+                when (Random().nextInt(10)) {
+                    0, 6 -> tiles.add(Tile(res = resources, type = 0))
+                    1, 7 -> tiles.add(Tile(res = resources, type = 1))
+                    2, 8 -> tiles.add(Tile(res = resources, type = 2))
+                    3, 9 -> tiles.add(Tile(res = resources, type = 3))
+                    4 -> {
+                        tiles.add(Tile(res = resources, type = 0))
+                        tiles.add(Tile(res = resources, type = 2))
+                    }
+                    5 -> {
+                        tiles.add(Tile(res = resources, type = 1))
+                        tiles.add(Tile(res = resources, type = 3))
+                    }
+                }
             }
-
         }
     }
 }

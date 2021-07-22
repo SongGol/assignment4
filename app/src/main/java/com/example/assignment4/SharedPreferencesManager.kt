@@ -6,7 +6,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
 object SharedPreferencesManager {
-    private const val NAME = "login_pref"
+    private const val NAME = "game_pref"
     private const val MODE = Context.MODE_PRIVATE
 
     private fun getSharedPreferences(context: Context): SharedPreferences {

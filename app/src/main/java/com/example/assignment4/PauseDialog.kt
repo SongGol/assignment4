@@ -1,6 +1,9 @@
 package com.example.assignment4
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -53,5 +56,18 @@ class PauseDialog : DialogFragment(){
 
     public fun setOnSelectListener(listener: OnSelectListener) {
         mListener = listener
+    }
+
+    override fun onResume() {
+        super.onResume()
+        dialog?.setOnKeyListener(object: DialogInterface.OnKeyListener{
+            override fun onKey(dialog: DialogInterface?, keyCode: Int, event: KeyEvent?): Boolean {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    Log.d("PauseDialog", "back_key")
+                    return true
+                }
+                return false
+            }
+        })
     }
 }

@@ -73,11 +73,13 @@ class GameActivity : AppCompatActivity() {
                 when(type) {
                     "return" -> finish()
                 }
+                gameView.resume()
             }
         })
         binding.gamePauseIv.setOnClickListener {
             pauseDialog.setStyle( DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light );
             pauseDialog.show(supportFragmentManager, "selectDialog")
+            gameView.pause()
         }
 
     }
@@ -90,5 +92,10 @@ class GameActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         gameView.resume()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Log.d("GameActivity", "onBackPressed()")
     }
 }
