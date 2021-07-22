@@ -17,7 +17,7 @@ import com.example.assignment4.databinding.ActivityGameBinding
 
 
 
-class GameActivity : AppCompatActivity() {
+class GameActivity : AppCompatActivity(){
     private lateinit var binding: ActivityGameBinding
     private var pauseDialog = PauseDialog()
     private lateinit var gameView: GameView
@@ -40,6 +40,13 @@ class GameActivity : AppCompatActivity() {
             gameView = GameView(this, point.x, point.y)
             Log.d("GameActivity x", point.x.toString() + ", y:" + point.y.toString())
         }
+
+        gameView.setOnExitListener(object : GameView.OnExitListener {
+            override fun onExitSet() {
+                Log.d("GameActivity","onExit")
+                this@GameActivity.finish()
+            }
+        })
 
         binding.gameFrameLo.addView(gameView)
         binding.gameConstraintLo.setOnTouchListener(object: View.OnTouchListener{
@@ -115,7 +122,9 @@ class GameActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
         Log.d("GameActivity", "onBackPressed()")
+        pauseDialog.setStyle( DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light );
+        pauseDialog.show(supportFragmentManager, "selectDialog")
+        gameView.pause()
     }
 }

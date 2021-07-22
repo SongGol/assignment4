@@ -11,16 +11,18 @@ import android.widget.ImageView
 import java.util.*
 import kotlin.collections.ArrayList
 
-class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : SurfaceView(mContext) , SurfaceHolder.Callback, Runnable {
+class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : SurfaceView(mContext) , SurfaceHolder.Callback, Runnable {
     private val mHolder = holder
     private lateinit var mThread: GameThread
     var tiles = ArrayList<Tile>()
     var trash = ArrayList<Tile>()
     private var paint = Paint()
 
+    private var mListener: OnExitListener? = null
     private val startTime: Long = System.currentTimeMillis()
     private var speed: Int = 10
     private lateinit var tThread: Thread
+    private var isExit = false
     private var isPlaying = false
     private var background1: Background
     private var background2: Background
@@ -47,7 +49,6 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
     }
 
     override fun run() {
-
         while (isPlaying) {
             if (tiles[tiles.size - 1].y > 0) {
                 when (Random().nextInt(10)) {
@@ -64,6 +65,15 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
                         tiles.add(Tile(res = resources, type = 3))
                     }
                 }
+            }
+
+            //차후 수정 필요
+            if (!tiles[0].isClicked && tiles[0].y + tiles[0].height > screenY) {
+                Log.d("GameView", "tile isnt clicked")
+                isPlaying = false
+                mListener?.onExitSet()
+
+                break
             }
 
             update()
@@ -141,20 +151,6 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }
-    }
-
-    private fun drawLine(canvas: Canvas, paint: Paint, x: Float, y: Float) {
-        paint.color = Color.WHITE
-        paint.style = Paint.Style.FILL
-        paint.strokeWidth = 2f
-        canvas.drawLine(x/2, 0f, x/2+1, y, paint)
-        canvas.drawLine(x/4, 0f, x/4+1, y, paint)
-        canvas.drawLine(x/4*3, 0f, x/4*3+1, y, paint)
-    }
-
-    private fun makeButton(context: Context) : View {
-        val view = ImageView(context)
-        return view
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
@@ -240,5 +236,13 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
                 }
             }
         }
+    }
+
+    interface OnExitListener {
+        fun onExitSet()
+    }
+
+    fun setOnExitListener(listener: OnExitListener) {
+        mListener = listener
     }
 }
