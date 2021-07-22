@@ -3,6 +3,8 @@ package com.example.assignment4
 import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.MotionEvent
 import android.view.View
@@ -19,6 +21,8 @@ class GameActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGameBinding
     private var pauseDialog = PauseDialog()
     private lateinit var gameView: GameView
+    private var mHandler = Handler(Looper.getMainLooper())
+    private var score = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +50,14 @@ class GameActivity : AppCompatActivity() {
 
                 if (action == MotionEvent.ACTION_DOWN) {   //처음 눌렸을 때
                     Log.d("손가락 눌림","$curX, $curY")
-                    if(gameView.mTile.isTouchIn(curX?.toInt(), curY?.toInt())) {
-                        gameView.mTile.isClicked = true
-                    }
                     for (item in gameView.tiles) {
                         if (item.isTouchIn(curX?.toInt(), curY?.toInt())) {
+                            if (!item.isClicked) {
+                                score++
+                                mHandler.post{
+                                    binding.gameScoreTv.text = score.toString()
+                                }
+                            }
                             item.isClicked = true
                         }
                     }
@@ -61,6 +68,7 @@ class GameActivity : AppCompatActivity() {
                 }
                 return true
             }
+
         })
 
         setContentView(binding.root)
@@ -71,9 +79,16 @@ class GameActivity : AppCompatActivity() {
             override fun onSelectSet(type: String) {
                 Log.d("GameActivity get value", type)
                 when(type) {
+                    "start" -> gameView.resume()
+                    "restart" -> {
+                        score = 0
+                        binding.gameScoreTv.text = "0"
+                        gameView.tiles = ArrayList<Tile>()
+                        gameView.tiles.add(Tile(res = resources))
+                        gameView.resume()
+                    }
                     "return" -> finish()
                 }
-                gameView.resume()
             }
         })
         binding.gamePauseIv.setOnClickListener {
@@ -86,11 +101,16 @@ class GameActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+        Log.d("GameActivity", "onPause()")
         gameView.pause()
+
+        val originScore: Int = SharedPreferencesManager.getIntValue(this, SharedPreferencesManager.SCORE)
+        SharedPreferencesManager.putIntValue(this, SharedPreferencesManager.SCORE, originScore + score)
     }
 
     override fun onResume() {
         super.onResume()
+        Log.d("GameActivity", "onResume()")
         gameView.resume()
     }
 

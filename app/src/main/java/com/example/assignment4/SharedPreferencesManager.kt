@@ -9,6 +9,8 @@ object SharedPreferencesManager {
     private const val NAME = "game_pref"
     private const val MODE = Context.MODE_PRIVATE
 
+    const val SCORE = "score"
+
     private fun getSharedPreferences(context: Context): SharedPreferences {
         return context.getSharedPreferences(NAME, MODE)
     }
@@ -17,8 +19,8 @@ object SharedPreferencesManager {
         return getSharedPreferences(context!!).getString(KEY, defaultValue)
     }
 
-    fun getIntValue(context: Context?, KEY: String, defaultValue: Int? = 0): Int? {
-        return defaultValue?.let { getSharedPreferences(context!!).getInt(KEY, it)}
+    fun getIntValue(context: Context?, KEY: String, defaultValue: Int = 0): Int {
+        return defaultValue.let { getSharedPreferences(context!!).getInt(KEY, it)}
     }
 
     fun getBoolValue(context: Context?, KEY: String, defaultValue: Boolean? = false): Boolean? {

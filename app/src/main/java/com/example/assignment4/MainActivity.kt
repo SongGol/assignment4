@@ -19,4 +19,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.mainScore.text = SharedPreferencesManager.getIntValue(this, SharedPreferencesManager.SCORE).toString()
+    }
 }

@@ -64,7 +64,7 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/game_title_tv"
+            android:id="@+id/game_score_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/game_title_tv"

@@ -86,12 +86,11 @@ class GameView(mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : 
         mTile.y += (speed * screenRatioY).toInt()
         if (mTile.y > screenY) mTile.y = -mTile.height
 
-        Log.d("GameView before tiles size", tiles.size.toString())
         for (item in tiles) {
             item.y += (speed * screenRatioY).toInt()
             if (item.y > screenY) trash.add(item)
         }
-        Log.d("GameView after tiles size", tiles.size.toString())
+
         for (item in trash) {
             tiles.remove(item)
         }
