@@ -34,6 +34,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
         var screenRatioY: Float = 0f
         const val NAME = "name"
         const val SCORE = "score"
+        const val POSITION = "position"
     }
 
     init {
@@ -78,7 +79,6 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
 
                 val intent = Intent(mContext, EndActivity::class.java)
                 intent.putExtra(NAME, "test_name")
-                intent.putExtra(SCORE, GameActivity.score)
                 mContext.startActivity(intent)
                 break
             }
@@ -89,7 +89,6 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
 
                 val intent = Intent(mContext, EndActivity::class.java)
                 intent.putExtra(NAME, "test_name")
-                intent.putExtra(SCORE, GameActivity.score)
                 mContext.startActivity(intent)
                 break
             }

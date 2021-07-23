@@ -68,6 +68,20 @@
         app:layout_constraintTop_toTopOf="@+id/exp_ratio_tv"
         tools:text="0000" />
 
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/heart_get_time_tv"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/number_border"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="@+id/heart_add_iv"
+        app:layout_constraintStart_toStartOf="@+id/heart_iv"
+        app:layout_constraintTop_toBottomOf="@+id/heart_count_tv"
+        tools:text="00:00" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/heart_iv"
         android:layout_width="wrap_content"
@@ -126,8 +140,8 @@
         android:id="@+id/main_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginEnd="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

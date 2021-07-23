@@ -114,9 +114,6 @@ class GameActivity : AppCompatActivity(){
         super.onPause()
         Log.d("GameActivity", "onPause()")
         gameView.pause()
-
-        val originScore: Int = SharedPreferencesManager.getIntValue(this, SharedPreferencesManager.SCORE)
-        SharedPreferencesManager.putIntValue(this, SharedPreferencesManager.SCORE, originScore + score)
     }
 
     override fun onResume() {
