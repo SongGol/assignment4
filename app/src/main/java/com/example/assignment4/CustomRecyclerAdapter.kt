@@ -32,10 +32,10 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
         init {
             binding.songPriceTv.setOnClickListener {
                 Log.d("Custom Adapter", "button clicked")
-                val heartCount = SharedPreferencesManager.getIntValue(itemView.context, HEART)
+                val heartCount = SharedPreferencesManager.getIntValue(itemView.context, HEART, 10)
                 var coin = SharedPreferencesManager.getIntValue(itemView.context, COIN)
                 if (dataSet[adapterPosition].bPurchase) {
-                    if (SharedPreferencesManager.getIntValue(itemView.context, HEART) > 0) {
+                    if (heartCount > 0) {
                         SharedPreferencesManager.putIntValue(itemView.context, GameView.POSITION, adapterPosition)
                         SharedPreferencesManager.putIntValue(itemView.context, GameView.SCORE, dataSet[adapterPosition].maxScore)
                         SharedPreferencesManager.putStrValue(itemView.context, GameView.NAME, dataSet[adapterPosition].title)
@@ -72,16 +72,16 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
             binding.songPriceTv.text = if (data.bPurchase) "시작" else "     X"+data.price.toString()
             if (data.bPurchase) binding.songPriceCoinIv.setImageResource(0)
 
-            if (data.maxScore > 100) binding.songStarOneIv.setImageResource(R.drawable.ic_start_color)
-            if (data.maxScore > 200) binding.songStarTwoIv.setImageResource(R.drawable.ic_start_color)
-            if (data.maxScore > 300) binding.songStarThreeIv.setImageResource(R.drawable.ic_start_color)
-            if (data.maxScore > 400)  {
+            if (data.maxScore > 10) binding.songStarOneIv.setImageResource(R.drawable.ic_start_color)
+            if (data.maxScore > 20) binding.songStarTwoIv.setImageResource(R.drawable.ic_start_color)
+            if (data.maxScore > 30) binding.songStarThreeIv.setImageResource(R.drawable.ic_start_color)
+            if (data.maxScore > 40)  {
                 binding.songStarOneIv.setImageResource(R.drawable.ic_crawn_color)
                 binding.songStarTwoIv.setImageResource(R.drawable.ic_crown_grey)
                 binding.songStarThreeIv.setImageResource(R.drawable.ic_crown_grey)
             }
-            if (data.maxScore > 500) binding.songStarTwoIv.setImageResource(R.drawable.ic_crawn_color)
-            if (data.maxScore > 600) binding.songStarThreeIv.setImageResource(R.drawable.ic_crawn_color)
+            if (data.maxScore > 50) binding.songStarTwoIv.setImageResource(R.drawable.ic_crawn_color)
+            if (data.maxScore > 60) binding.songStarThreeIv.setImageResource(R.drawable.ic_crawn_color)
         }
     }
 }

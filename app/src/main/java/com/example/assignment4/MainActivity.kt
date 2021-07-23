@@ -52,7 +52,10 @@ class MainActivity : AppCompatActivity() {
         Log.d("MainActivity", "onRestart()")
         val pos = SharedPreferencesManager.getIntValue(this, GameView.POSITION)
         val mScore = SharedPreferencesManager.getIntValue(this, GameView.SCORE)
+        val heartCount = SharedPreferencesManager.getIntValue(this, HEART)
+        binding.heartCountTv.text = heartCount.toString()
         if (musicArray[pos].maxScore < mScore) {
+            Log.d("MainActivity", "onRestart() maxScore changed")
             musicArray[pos].maxScore = mScore
             customAdapter.notifyItemChanged(pos)
         }
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity() {
     private fun initialDataSet() : ArrayList<Music> {
         val default = ArrayList<Music>()
 
-        default.add(Music("캐논", "파헬벨", bPurchase = true, bHeart = true))
+        default.add(Music("캐논", "파헬벨", bPurchase = true))
         default.add(Music("징글벨", "제임스 로즈 필 테", draw = R.drawable.ic_jingle_bells))
         default.add(Music("반짝반짝 작은 별", "영국 민속", draw = R.drawable.ic_blinkle_star))
         default.add(Music("Happy New Year", "영국 민속", draw = R.drawable.ic_happy_new_year))
