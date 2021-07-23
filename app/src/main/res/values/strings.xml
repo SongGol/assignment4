@@ -7,4 +7,5 @@
     <string name="max_score_tv">최고 점수 : %1$d</string>
     <string name="result_exp_tv">EXP +%1$d</string>
     <string name="result_coin_tv">+%1$d</string>
+    <string name="song_price_tv">시작</string>
 </resources>
