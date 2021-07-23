@@ -4,4 +4,7 @@
     <string name="pause_start_tv">계속</string>
     <string name="pause_restart_tv">재시작</string>
     <string name="pause_return_tv">종료</string>
+    <string name="max_score_tv">최고 점수 : %1$d</string>
+    <string name="result_exp_tv">EXP +%1$d</string>
+    <string name="result_coin_tv">+%1$d</string>
 </resources>

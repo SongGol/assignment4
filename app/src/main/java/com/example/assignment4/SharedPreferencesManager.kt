@@ -65,4 +65,21 @@ object SharedPreferencesManager {
         editor.remove(KEY)
         editor.apply()
     }
+
+    fun putObject(context: Context?, KEY: String, valueObject: ArrayList<Music>) {
+        val editor = getSharedPreferences(context!!).edit()
+        val gson = Gson()
+        val json: String = gson.toJson(valueObject)
+        editor.putString(KEY, json)
+        editor.apply()
+    }
+
+    fun getObject(context: Context?, KEY: String, defaultValue: ArrayList<Music>): ArrayList<Music> {
+        val gson = Gson()
+        val mPref = getSharedPreferences(context!!)
+        val json: String? = mPref.getString(KEY, gson.toJson(defaultValue))
+
+        val itemType = object : TypeToken<List<Music>>() {}.type
+        return gson.fromJson<ArrayList<Music>>(json, itemType)
+    }
 }

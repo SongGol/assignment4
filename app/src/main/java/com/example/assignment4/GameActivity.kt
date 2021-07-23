@@ -22,11 +22,15 @@ class GameActivity : AppCompatActivity(){
     private var pauseDialog = PauseDialog()
     private lateinit var gameView: GameView
     private var mHandler = Handler(Looper.getMainLooper())
-    private var score = 0
+
+    companion object {
+        var score = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
+        score = 0
 
         val point = Point()
         if (Build.VERSION.SDK_INT >= 30) {

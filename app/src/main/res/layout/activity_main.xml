@@ -14,23 +14,25 @@
         android:text="게임창 이동"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.262" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/main_score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="292dp"
+        android:layout_marginTop="124dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/exp_ratio_tv"
-        android:layout_width="90dp"
+        android:layout_width="80dp"
         android:layout_height="25dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
@@ -54,7 +56,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/heart_count_tv"
-        android:layout_width="90dp"
+        android:layout_width="80dp"
         android:layout_height="0dp"
         android:background="@drawable/number_border"
         android:gravity="center"
@@ -70,7 +72,7 @@
         android:id="@+id/heart_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="65dp"
+        android:layout_marginEnd="55dp"
         app:layout_constraintBottom_toBottomOf="@+id/heart_count_tv"
         app:layout_constraintEnd_toEndOf="@+id/heart_count_tv"
         app:layout_constraintTop_toTopOf="@+id/heart_count_tv"
@@ -79,8 +81,8 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/heart_add_iv"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="70dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="55dp"
         app:layout_constraintBottom_toBottomOf="@+id/heart_count_tv"
         app:layout_constraintStart_toStartOf="@+id/heart_count_tv"
         app:layout_constraintTop_toTopOf="@+id/heart_count_tv"
@@ -88,7 +90,7 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/money_count_tv"
-        android:layout_width="90dp"
+        android:layout_width="80dp"
         android:layout_height="0dp"
         android:layout_marginEnd="30dp"
         android:background="@drawable/number_border"
@@ -104,7 +106,7 @@
         android:id="@+id/money_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="70dp"
+        android:layout_marginEnd="60dp"
         app:layout_constraintBottom_toBottomOf="@+id/money_count_tv"
         app:layout_constraintEnd_toEndOf="@+id/money_count_tv"
         app:layout_constraintTop_toTopOf="@+id/money_count_tv"
@@ -113,10 +115,20 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/money_add_tv"
         android:layout_width="wrap_content"
-        android:layout_height="30dp"
-        android:layout_marginStart="70dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="60dp"
         app:layout_constraintBottom_toBottomOf="@+id/money_count_tv"
         app:layout_constraintStart_toStartOf="@+id/money_count_tv"
         app:layout_constraintTop_toTopOf="@+id/money_count_tv"
         app:srcCompat="@drawable/ic_add" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tmp_btn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

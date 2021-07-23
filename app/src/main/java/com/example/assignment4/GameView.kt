@@ -1,6 +1,7 @@
 package com.example.assignment4
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -31,6 +32,8 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
     companion object {
         var screenRatioX: Float = 0f
         var screenRatioY: Float = 0f
+        const val NAME = "name"
+        const val SCORE = "score"
     }
 
     init {
@@ -67,12 +70,27 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
                 }
             }
 
-            //차후 수정 필요
+            //클릭되지 않은 타일이 내려왔을 때
             if (!tiles[0].isClicked && tiles[0].y + tiles[0].height > screenY) {
-                Log.d("GameView", "tile isnt clicked")
+                Log.d("GameView", "tile isn't clicked")
                 isPlaying = false
                 mListener?.onExitSet()
 
+                val intent = Intent(mContext, EndActivity::class.java)
+                intent.putExtra(NAME, "test_name")
+                intent.putExtra(SCORE, GameActivity.score)
+                mContext.startActivity(intent)
+                break
+            }
+            if (tiles.size >= 2 && tiles[0].y == tiles[1].y && tiles[1].y + tiles[1].height > screenY && !tiles[1].isClicked) {
+                Log.d("GameView", "tile isn't clicked")
+                isPlaying = false
+                mListener?.onExitSet()
+
+                val intent = Intent(mContext, EndActivity::class.java)
+                intent.putExtra(NAME, "test_name")
+                intent.putExtra(SCORE, GameActivity.score)
+                mContext.startActivity(intent)
                 break
             }
 
