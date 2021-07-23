@@ -34,11 +34,6 @@ class MainActivity : AppCompatActivity() {
         binding.moneyCountTv.text = SharedPreferencesManager.getIntValue(this, COIN, 0).toString()
         binding.expRatioTv.text = "55%"
 
-        binding.tmpBtn.setOnClickListener{
-            val intent = Intent(this, GameActivity::class.java)
-            startActivity(intent)
-        }
-
         binding.mainBonusCoinIv.setOnClickListener {
             var coin: Int = SharedPreferencesManager.getIntValue(this, COIN, 0)
             coin += 150
@@ -59,12 +54,6 @@ class MainActivity : AppCompatActivity() {
             musicArray[pos].maxScore = mScore
             customAdapter.notifyItemChanged(pos)
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        binding.mainScore.text = SharedPreferencesManager.getIntValue(this, SharedPreferencesManager.SCORE).toString()
     }
 
     private fun initialDataSet() : ArrayList<Music> {

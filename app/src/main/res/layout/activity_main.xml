@@ -7,28 +7,40 @@
     android:background="@drawable/blue_sky"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/tmp_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="게임창 이동"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/main_cover_cv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintBottom_toTopOf="@id/main_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.262" />
+        app:layout_constraintTop_toBottomOf="@+id/heart_get_time_tv">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/main_score"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="124dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/main_cover_iv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:background="@drawable/circle"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/recycler_gl_bottom"
+            app:layout_constraintStart_toStartOf="@+id/recycler_gl_start"
+            app:layout_constraintTop_toTopOf="@+id/recycler_gl_top"
+            app:srcCompat="@drawable/ic_faded" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="▷"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/exp_ratio_tv"
@@ -74,9 +86,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:background="@drawable/number_border"
+        android:gravity="center"
         android:textColor="@color/white"
         android:textSize="10sp"
-        android:gravity="center"
         app:layout_constraintEnd_toEndOf="@+id/heart_add_iv"
         app:layout_constraintStart_toStartOf="@+id/heart_iv"
         app:layout_constraintTop_toBottomOf="@+id/heart_count_tv"
@@ -145,7 +157,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tmp_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/main_cover_cv" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/main_shield_iv"
@@ -154,7 +166,7 @@
         android:layout_marginStart="20dp"
         app:layout_constraintBottom_toTopOf="@+id/main_recycler_view"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/exp_ratio_tv"
         app:srcCompat="@drawable/ic_shield" />
 
     <androidx.appcompat.widget.AppCompatImageView
@@ -164,7 +176,7 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toTopOf="@+id/main_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/money_count_tv"
         app:srcCompat="@drawable/ic_coin_box" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
