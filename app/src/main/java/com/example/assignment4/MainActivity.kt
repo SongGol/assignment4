@@ -25,14 +25,25 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
 
         musicArray = SharedPreferencesManager.getObject(this, MUSIC_DATA, initialDataSet())
-        customAdapter = CustomRecyclerAdapter(musicArray)
+        customAdapter = CustomRecyclerAdapter(musicArray, binding)
         binding.mainRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.mainRecyclerView.adapter = customAdapter
         binding.mainRecyclerView.addItemDecoration(RecyclerViewDecoration(10))
+        //상단 숫자 설정
+        binding.heartCountTv.text = SharedPreferencesManager.getIntValue(this, HEART, 10).toString()
+        binding.moneyCountTv.text = SharedPreferencesManager.getIntValue(this, COIN, 0).toString()
+        binding.expRatioTv.text = "55%"
 
         binding.tmpBtn.setOnClickListener{
             val intent = Intent(this, GameActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.mainBonusCoinIv.setOnClickListener {
+            var coin: Int = SharedPreferencesManager.getIntValue(this, COIN, 0)
+            coin += 150
+            binding.moneyCountTv.text = coin.toString()
+            SharedPreferencesManager.putIntValue(this, COIN, coin)
         }
     }
 

@@ -6,11 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.assignment4.databinding.ActivityMainBinding
 import com.example.assignment4.databinding.RecyclerviewItemBinding
 
-class CustomRecyclerAdapter(var dataSet: ArrayList<Music>) : RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>(){
+class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: ActivityMainBinding) : RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>(){
     private lateinit var binding: RecyclerviewItemBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomRecyclerAdapter.ViewHolder {
@@ -30,12 +32,29 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>) : RecyclerView.Adapte
         init {
             binding.songPriceTv.setOnClickListener {
                 Log.d("Custom Adapter", "button clicked")
-                SharedPreferencesManager.putIntValue(itemView.context, GameView.POSITION, adapterPosition)
-                SharedPreferencesManager.putIntValue(itemView.context, GameView.SCORE, dataSet[adapterPosition].maxScore)
-                SharedPreferencesManager.putStrValue(itemView.context, GameView.NAME, dataSet[adapterPosition].title)
+                val heartCount = SharedPreferencesManager.getIntValue(itemView.context, HEART)
+                var coin = SharedPreferencesManager.getIntValue(itemView.context, COIN)
+                if (dataSet[adapterPosition].bPurchase) {
+                    if (SharedPreferencesManager.getIntValue(itemView.context, HEART) > 0) {
+                        SharedPreferencesManager.putIntValue(itemView.context, GameView.POSITION, adapterPosition)
+                        SharedPreferencesManager.putIntValue(itemView.context, GameView.SCORE, dataSet[adapterPosition].maxScore)
+                        SharedPreferencesManager.putStrValue(itemView.context, GameView.NAME, dataSet[adapterPosition].title)
+                        SharedPreferencesManager.putIntValue(itemView.context, HEART, heartCount - 1)
 
-                val intent = Intent(itemView.context, GameActivity::class.java)
-                itemView.context.startActivity(intent)
+                        val intent = Intent(itemView.context, GameActivity::class.java)
+                        itemView.context.startActivity(intent)
+                    } else {
+                        Toast.makeText(itemView.context, "하트가 부족합니다", Toast.LENGTH_SHORT).show()
+                    }
+                } else if (coin >= 1000){
+                    coin -= 1000
+                    dataSet[adapterPosition].bPurchase = true
+                    notifyItemChanged(adapterPosition)
+                    mainBinding.moneyCountTv.text = coin.toString()
+                    SharedPreferencesManager.putIntValue(itemView.context, COIN, coin)
+                } else {
+                    Toast.makeText(itemView.context, "코인이 부족합니다", Toast.LENGTH_SHORT).show()
+                }
             }
             //하트 선택
             binding.songFavoriteIv.setOnClickListener {
@@ -50,7 +69,7 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>) : RecyclerView.Adapte
             binding.titleCoverIv.setImageResource(data.draw)
 
             binding.songFavoriteIv.setImageResource(if (data.bHeart) R.drawable.ic_heart_selected else R.drawable.ic_heart_default)
-            binding.songPriceTv.text = if (data.bPurchase) "시작" else data.price.toString()
+            binding.songPriceTv.text = if (data.bPurchase) "시작" else "     X"+data.price.toString()
             if (data.bPurchase) binding.songPriceCoinIv.setImageResource(0)
 
             if (data.maxScore > 100) binding.songStarOneIv.setImageResource(R.drawable.ic_start_color)

@@ -78,7 +78,6 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
                 mListener?.onExitSet()
 
                 val intent = Intent(mContext, EndActivity::class.java)
-                intent.putExtra(NAME, "test_name")
                 mContext.startActivity(intent)
                 break
             }
@@ -88,7 +87,6 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
                 mListener?.onExitSet()
 
                 val intent = Intent(mContext, EndActivity::class.java)
-                intent.putExtra(NAME, "test_name")
                 mContext.startActivity(intent)
                 break
             }

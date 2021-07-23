@@ -31,6 +31,7 @@ class GameActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         binding = ActivityGameBinding.inflate(layoutInflater)
         score = 0
+        binding.gameScoreTv.text = SharedPreferencesManager.getStrValue(this, GameView.NAME)
 
         val point = Point()
         if (Build.VERSION.SDK_INT >= 30) {
