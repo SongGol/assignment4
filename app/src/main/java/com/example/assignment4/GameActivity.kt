@@ -79,7 +79,7 @@ class GameActivity : AppCompatActivity(){
                         }
                     }
                 } else if (action == MotionEvent.ACTION_MOVE) {    //누르고 움직였을 때
-                    Log.d("손가락 움직임", "$curX, $curY")
+                    //Log.d("손가락 움직임", "$curX, $curY")
                 } else if (action == MotionEvent.ACTION_UP) {    //누른걸 뗐을 때
                     Log.d("손가락 뗌", "$curX, $curY")
                 }
@@ -127,6 +127,7 @@ class GameActivity : AppCompatActivity(){
     override fun onRestart() {
         super.onRestart()
         Log.d("GameActivity", "onRestart()")
+        MusicService.start()
     }
 
     override fun onPause() {
@@ -141,6 +142,7 @@ class GameActivity : AppCompatActivity(){
         super.onResume()
         Log.d("GameActivity", "onResume()")
         gameView.resume()
+        //MusicService.start()
     }
 
     override fun onBackPressed() {

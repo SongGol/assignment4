@@ -91,6 +91,10 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
                 break
             }
 
+            if ((System.currentTimeMillis() - startTime)%1000L == 0L) {
+                speed++
+            }
+
             update()
             draw()
             sleep()

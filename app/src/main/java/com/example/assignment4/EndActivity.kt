@@ -26,6 +26,11 @@ class EndActivity : AppCompatActivity() {
         binding.resultExpTv.text = String.format(resources.getString(R.string.result_exp_tv, 0))
         binding.resultCoinTv.text = String.format(resources.getString(R.string.result_coin_tv, 0))
 
+        //상단 숫자 설정
+        binding.heartCountTv.text = SharedPreferencesManager.getIntValue(this, HEART, 10).toString()
+        binding.moneyCountTv.text = SharedPreferencesManager.getIntValue(this, COIN, 0).toString()
+        binding.expRatioTv.text = "55%"
+
         if (score > 10) binding.resultLeftIv.setImageResource(R.drawable.ic_start_color)
         if (score > 20) binding.resultCenterIv.setImageResource(R.drawable.ic_start_color)
         if (score > 30) binding.resultRightIv.setImageResource(R.drawable.ic_start_color)
