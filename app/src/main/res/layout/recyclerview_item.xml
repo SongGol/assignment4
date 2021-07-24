@@ -90,18 +90,18 @@
         android:textSize="18sp"
         android:textColor="@color/black"
         android:layout_marginStart="14dp"
-        android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/title_cover_cv"
-        app:layout_constraintTop_toTopOf="@+id/title_cover_cv" />
+        app:layout_constraintTop_toTopOf="@+id/title_cover_cv"
+        tools:text="title"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/song_artist_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/song_title_tv"
-        app:layout_constraintTop_toBottomOf="@+id/song_title_tv" />
+        app:layout_constraintTop_toBottomOf="@+id/song_title_tv"
+        tools:text="artist"/>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/song_favorite_iv"

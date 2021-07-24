@@ -46,9 +46,6 @@ class MainActivity : AppCompatActivity() {
             heart += 1
             binding.heartCountTv.text = heart.toString()
             SharedPreferencesManager.putIntValue(this, HEART, heart)
-
-            val intent = Intent(this, MusicService::class.java)
-            startService(intent)
         }
 
         binding.moneyAddTv.setOnClickListener {
@@ -56,9 +53,6 @@ class MainActivity : AppCompatActivity() {
             coin += 100
             binding.moneyCountTv.text = coin.toString()
             SharedPreferencesManager.putIntValue(this, COIN, coin)
-
-            val intent = Intent(this, MusicService::class.java)
-            stopService(intent)
         }
     }
 

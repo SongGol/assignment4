@@ -25,16 +25,16 @@ class EndActivity : AppCompatActivity() {
         binding.resultExpTv.text = String.format(resources.getString(R.string.result_exp_tv, 0))
         binding.resultCoinTv.text = String.format(resources.getString(R.string.result_coin_tv, 0))
 
-        if (score > 100) binding.resultLeftIv.setImageResource(R.drawable.ic_start_color)
-        if (score > 200) binding.resultCenterIv.setImageResource(R.drawable.ic_start_color)
-        if (score > 300) binding.resultRightIv.setImageResource(R.drawable.ic_start_color)
-        if (score > 400)  {
+        if (score > 10) binding.resultLeftIv.setImageResource(R.drawable.ic_start_color)
+        if (score > 20) binding.resultCenterIv.setImageResource(R.drawable.ic_start_color)
+        if (score > 30) binding.resultRightIv.setImageResource(R.drawable.ic_start_color)
+        if (score > 40)  {
             binding.resultLeftIv.setImageResource(R.drawable.ic_crawn_color)
             binding.resultCenterIv.setImageResource(R.drawable.ic_crawn_default)
             binding.resultRightIv.setImageResource(R.drawable.ic_crawn_default)
         }
-        if (score > 500) binding.resultCenterIv.setImageResource(R.drawable.ic_crawn_color)
-        if (score > 600) binding.resultRightIv.setImageResource(R.drawable.ic_crawn_color)
+        if (score > 50) binding.resultCenterIv.setImageResource(R.drawable.ic_crawn_color)
+        if (score > 60) binding.resultRightIv.setImageResource(R.drawable.ic_crawn_color)
 
         //click listener
         binding.returnIv.setOnClickListener {

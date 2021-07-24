@@ -1,5 +1,6 @@
 package com.example.assignment4
 
+import android.content.Intent
 import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
@@ -32,6 +33,10 @@ class GameActivity : AppCompatActivity(){
         binding = ActivityGameBinding.inflate(layoutInflater)
         score = 0
         binding.gameScoreTv.text = SharedPreferencesManager.getStrValue(this, GameView.NAME)
+
+        val intent = Intent(this, MusicService::class.java)
+        intent.putExtra(MusicService.MKEY, binding.gameScoreTv.text.toString())
+        startService(intent)
 
         val point = Point()
         if (Build.VERSION.SDK_INT >= 30) {
@@ -91,13 +96,20 @@ class GameActivity : AppCompatActivity(){
             override fun onSelectSet(type: String) {
                 Log.d("GameActivity get value", type)
                 when(type) {
-                    "start" -> gameView.resume()
+                    "start" ->  {
+                        gameView.resume()
+                        MusicService.start()
+                    }
                     "restart" -> {
                         score = 0
                         binding.gameScoreTv.text = "0"
                         gameView.tiles = ArrayList<Tile>()
                         gameView.tiles.add(Tile(res = resources))
                         gameView.resume()
+
+                        val intent = Intent(this@GameActivity, MusicService::class.java)
+                        intent.putExtra(MusicService.MKEY, SharedPreferencesManager.getStrValue(this@GameActivity, GameView.NAME))
+                        startService(intent)
                     }
                     "return" -> finish()
                 }
@@ -107,14 +119,22 @@ class GameActivity : AppCompatActivity(){
             pauseDialog.setStyle( DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light );
             pauseDialog.show(supportFragmentManager, "selectDialog")
             gameView.pause()
+            MusicService.pause()
         }
 
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d("GameActivity", "onRestart()")
     }
 
     override fun onPause() {
         super.onPause()
         Log.d("GameActivity", "onPause()")
         gameView.pause()
+
+        MusicService.pause()
     }
 
     override fun onResume() {
@@ -128,5 +148,12 @@ class GameActivity : AppCompatActivity(){
         pauseDialog.setStyle( DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Holo_Light );
         pauseDialog.show(supportFragmentManager, "selectDialog")
         gameView.pause()
+        MusicService.pause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val intent = Intent(this, MusicService::class.java)
+        stopService(intent)
     }
 }

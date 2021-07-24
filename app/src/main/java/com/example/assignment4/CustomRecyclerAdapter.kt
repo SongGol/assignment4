@@ -23,6 +23,7 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
     override fun onBindViewHolder(holder: CustomRecyclerAdapter.ViewHolder, position: Int) {
         val item: Music = dataSet[position]
         holder.bind(item)
+        Log.d("maxScore", item.maxScore.toString() + ", pos: " + position.toString())
     }
 
     override fun getItemCount(): Int = dataSet.size
@@ -42,6 +43,7 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
                         SharedPreferencesManager.putIntValue(itemView.context, HEART, heartCount - 1)
 
                         val intent = Intent(itemView.context, GameActivity::class.java)
+                        intent.putExtra(MusicService.MKEY, dataSet[adapterPosition].title)
                         itemView.context.startActivity(intent)
                     } else {
                         Toast.makeText(itemView.context, "하트가 부족합니다", Toast.LENGTH_SHORT).show()
@@ -69,8 +71,12 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
             binding.titleCoverIv.setImageResource(data.draw)
 
             binding.songFavoriteIv.setImageResource(if (data.bHeart) R.drawable.ic_heart_selected else R.drawable.ic_heart_default)
-            binding.songPriceTv.text = if (data.bPurchase) "시작" else "     X"+data.price.toString()
-            if (data.bPurchase) binding.songPriceCoinIv.setImageResource(0)
+            if (data.bPurchase)  {
+                binding.songPriceCoinIv.setImageResource(0)
+                binding.songPriceTv.text = "시작"
+            } else {
+                binding.songPriceTv.text = "     X"+data.price.toString()
+            }
 
             if (data.maxScore > 10) binding.songStarOneIv.setImageResource(R.drawable.ic_start_color)
             if (data.maxScore > 20) binding.songStarTwoIv.setImageResource(R.drawable.ic_start_color)

@@ -126,16 +126,8 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
         if (mHolder.surface.isValid) {
             val canvas: Canvas = mHolder.lockCanvas()
 
-            val rect1 = Rect(0, 0, background1.x, background1.y)
-            val rect2 = Rect(0, 0, background2.x, background2.y)
-            //canvas.drawBitmap(background1.background, null, rect1, paint)
-            //canvas.drawBitmap(background2.background, null, rect2, paint)
             canvas.drawBitmap(background1.background, background1.x.toFloat(), background1.y.toFloat(), paint)
             canvas.drawBitmap(background2.background, background2.x.toFloat(), background2.y.toFloat(), paint)
-
-            //drawLine(canvas, paint, screenX.toFloat(), screenY.toFloat())
-
-            //canvas.drawBitmap(mTile.getTile(), mTile.x.toFloat(),  mTile.y.toFloat(), paint)
 
             for (item in tiles) {
                 canvas.drawBitmap(item.getTile(), item.x.toFloat(),  item.y.toFloat(), paint)
@@ -171,23 +163,6 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
     override fun surfaceCreated(holder: SurfaceHolder) {
         Log.d("GameView", "SurfaceCreated()")
         mThread = GameThread()
-        var c: Canvas? = null
-
-        /*
-        try {
-            c = mHolder.lockCanvas()
-            synchronized(mHolder) {
-                val paint = Paint()
-                paint.setColor(Color.RED)
-                c.drawRect(0f, 0f, 100f, 100f, paint)
-            }
-        } finally {
-            if (c != null) mHolder.unlockCanvasAndPost(c)
-        }
-
-        val mTestThread = TestThread()
-        mTestThread.start( ) */
-        //mThread.start()
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
