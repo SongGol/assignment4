@@ -40,6 +40,26 @@ class MainActivity : AppCompatActivity() {
             binding.moneyCountTv.text = coin.toString()
             SharedPreferencesManager.putIntValue(this, COIN, coin)
         }
+
+        binding.heartAddIv.setOnClickListener {
+            var heart = SharedPreferencesManager.getIntValue(this, HEART, 10)
+            heart += 1
+            binding.heartCountTv.text = heart.toString()
+            SharedPreferencesManager.putIntValue(this, HEART, heart)
+
+            val intent = Intent(this, MusicService::class.java)
+            startService(intent)
+        }
+
+        binding.moneyAddTv.setOnClickListener {
+            var coin: Int = SharedPreferencesManager.getIntValue(this, COIN, 0)
+            coin += 100
+            binding.moneyCountTv.text = coin.toString()
+            SharedPreferencesManager.putIntValue(this, COIN, coin)
+
+            val intent = Intent(this, MusicService::class.java)
+            stopService(intent)
+        }
     }
 
     override fun onRestart() {
@@ -61,12 +81,12 @@ class MainActivity : AppCompatActivity() {
 
         default.add(Music("캐논", "파헬벨", bPurchase = true))
         default.add(Music("징글벨", "제임스 로즈 필 테", draw = R.drawable.ic_jingle_bells))
-        default.add(Music("반짝반짝 작은 별", "영국 민속", draw = R.drawable.ic_blinkle_star))
+        default.add(Music("반짝반짝 작은 별", "ABBA", draw = R.drawable.ic_blinkle_star))
         default.add(Music("Happy New Year", "영국 민속", draw = R.drawable.ic_happy_new_year))
         default.add(Music("The Spectre", "Alan Walker", draw = R.drawable.ic_the_spectre))
         default.add(Music("Alone", "Alan Walker", draw = R.drawable.ic_alone))
         default.add(Music("Faded", "Alan Walker", draw = R.drawable.ic_faded))
-        default.add(Music("호랑이 두 마리", "프랑스 발라드", draw = R.drawable.ic_two_tigers))
+        default.add(Music("Eye Of The Tiger", "SURVIVOR", draw = R.drawable.ic_two_tigers))
 
         return default
     }
