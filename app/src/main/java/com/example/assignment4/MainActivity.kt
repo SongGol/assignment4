@@ -62,7 +62,9 @@ class MainActivity : AppCompatActivity() {
         val pos = SharedPreferencesManager.getIntValue(this, GameView.POSITION)
         val mScore = SharedPreferencesManager.getIntValue(this, GameView.SCORE)
         val heartCount = SharedPreferencesManager.getIntValue(this, HEART)
+        val coin = SharedPreferencesManager.getIntValue(this, COIN)
         binding.heartCountTv.text = heartCount.toString()
+        binding.moneyCountTv.text = coin.toString()
         if (musicArray[pos].maxScore < mScore) {
             Log.d("MainActivity", "onRestart() maxScore changed")
             musicArray[pos].maxScore = mScore

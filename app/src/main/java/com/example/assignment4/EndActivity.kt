@@ -7,6 +7,7 @@ import com.example.assignment4.databinding.ActivityEndBinding
 
 class EndActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEndBinding
+    private var score: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,7 +16,7 @@ class EndActivity : AppCompatActivity() {
         setContentView(view)
 
         val name = SharedPreferencesManager.getStrValue(this, GameView.NAME)
-        val score = GameActivity.score
+        score = GameActivity.score
         var maxScore = SharedPreferencesManager.getIntValue(this, GameView.SCORE)
         if (maxScore < score) maxScore = score
 
@@ -62,5 +63,7 @@ class EndActivity : AppCompatActivity() {
 
     private fun storeData(max: Int) {
         SharedPreferencesManager.putIntValue(this, GameView.SCORE, max)
+        val coin = SharedPreferencesManager.getIntValue(this, COIN)
+        SharedPreferencesManager.putIntValue(this, COIN, coin + score * 10)
     }
 }

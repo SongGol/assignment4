@@ -75,6 +75,7 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
                 binding.songPriceCoinIv.setImageResource(0)
                 binding.songPriceTv.text = "시작"
             } else {
+                binding.songPriceCoinIv.setImageResource(R.drawable.ic_money)
                 binding.songPriceTv.text = "     X"+data.price.toString()
             }
 
