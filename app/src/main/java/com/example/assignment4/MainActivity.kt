@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
                 Thread.sleep(1000)
             }
         } catch (e: InterruptedException) {
+            Log.d("MainActivity interrupt", "check")
             SharedPreferencesManager.putIntValue(this, HEART, heartCount)
         }
     }

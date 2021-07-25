@@ -40,7 +40,7 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
                         SharedPreferencesManager.putIntValue(itemView.context, GameView.POSITION, adapterPosition)
                         SharedPreferencesManager.putIntValue(itemView.context, GameView.SCORE, dataSet[adapterPosition].maxScore)
                         SharedPreferencesManager.putStrValue(itemView.context, GameView.NAME, dataSet[adapterPosition].title)
-                        SharedPreferencesManager.putIntValue(itemView.context, HEART, heartCount - 1)
+                        SharedPreferencesManager.putIntValue(itemView.context, HEART, heartCount)
 
                         val intent = Intent(itemView.context, GameActivity::class.java)
                         intent.putExtra(MusicService.MKEY, dataSet[adapterPosition].title)

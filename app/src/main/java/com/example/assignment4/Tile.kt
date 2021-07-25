@@ -5,10 +5,12 @@ import android.graphics.*
 
 class Tile(var x: Int = 0, var y: Int = 0, res: Resources, type: Int = 0) {
     var isClicked = false
+    var bFail = false
     var width: Int
     var height: Int
     private var defaultTile = BitmapFactory.decodeResource(res, R.drawable.ic_tile_default)
     private var clickedTile = BitmapFactory.decodeResource(res, R.drawable.ic_tile_clicked)
+    private var failTile = BitmapFactory.decodeResource(res, R.drawable.ic_tile_fail)
 
     init {
         width = defaultTile.width
@@ -22,6 +24,7 @@ class Tile(var x: Int = 0, var y: Int = 0, res: Resources, type: Int = 0) {
 
         defaultTile = Bitmap.createScaledBitmap(defaultTile, width, height, false)
         clickedTile = Bitmap.createScaledBitmap(clickedTile, width, height, false)
+        failTile = Bitmap.createScaledBitmap(failTile, width, height, false)
 
         when(type) {
             1 -> x += width
@@ -46,7 +49,7 @@ class Tile(var x: Int = 0, var y: Int = 0, res: Resources, type: Int = 0) {
     }
 
     fun getTile(): Bitmap {
-        if (!isClicked) {
+        if (!isClicked && !bFail) {
             return defaultTile
         }
         return clickedTile

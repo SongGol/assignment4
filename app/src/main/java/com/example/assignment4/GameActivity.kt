@@ -67,6 +67,7 @@ class GameActivity : AppCompatActivity(){
 
                 if (action == MotionEvent.ACTION_DOWN) {   //처음 눌렸을 때
                     Log.d("손가락 눌림","$curX, $curY")
+                    var bTileCheck = false
                     for (item in gameView.tiles) {
                         if (item.isTouchIn(curX?.toInt(), curY?.toInt())) {
                             if (!item.isClicked) {
@@ -76,7 +77,17 @@ class GameActivity : AppCompatActivity(){
                                 }
                             }
                             item.isClicked = true
+                            bTileCheck = true
                         }
+                    }
+                    //타일이 아닌 곳 터치
+                    if (!bTileCheck) {
+                        Thread() {
+                            for (i in 1..5) {
+
+                                Thread.sleep(500)
+                            }
+                        }.start()
                     }
                 } else if (action == MotionEvent.ACTION_MOVE) {    //누르고 움직였을 때
                     //Log.d("손가락 움직임", "$curX, $curY")

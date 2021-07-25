@@ -6,6 +6,8 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Rect
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
@@ -19,6 +21,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
     var trash = ArrayList<Tile>()
     private var paint = Paint()
 
+    private var bFail = false
     private var mListener: OnExitListener? = null
     private val startTime: Long = System.currentTimeMillis()
     private var speed: Int = 13
@@ -77,6 +80,10 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
                 isPlaying = false
                 mListener?.onExitSet()
 
+                //타일 색상 변환
+                bFail = true
+                failTile(tiles[0])
+
                 val intent = Intent(mContext, EndActivity::class.java)
                 mContext.startActivity(intent)
                 break
@@ -85,6 +92,9 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
                 Log.d("GameView", "tile isn't clicked")
                 isPlaying = false
                 mListener?.onExitSet()
+
+                bFail = true
+                failTile(tiles[1])
 
                 val intent = Intent(mContext, EndActivity::class.java)
                 mContext.startActivity(intent)
@@ -99,25 +109,28 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
             draw()
             sleep()
         }
+
     }
 
     private fun update() {
-        background1.y -= (10 * screenRatioY).toInt()
-        background2.y -= (10 * screenRatioY).toInt()
+        if (!bFail) {
+            background1.y -= (10 * screenRatioY).toInt()
+            background2.y -= (10 * screenRatioY).toInt()
 
-        if (background1.y + background1.background.height < 0) {
-            background1.y = screenY
-        }
-        if (background2.y + background2.background.height < 0) {
-            background2.y = screenY
-        }
+            if (background1.y + background1.background.height < 0) {
+                background1.y = screenY
+            }
+            if (background2.y + background2.background.height < 0) {
+                background2.y = screenY
+            }
 
-        mTile.y += (speed * screenRatioY).toInt()
-        if (mTile.y > screenY) mTile.y = -mTile.height
+            mTile.y += (speed * screenRatioY).toInt()
+            if (mTile.y > screenY) mTile.y = -mTile.height
 
-        for (item in tiles) {
-            item.y += (speed * screenRatioY).toInt()
-            if (item.y > screenY) trash.add(item)
+            for (item in tiles) {
+                item.y += (speed * screenRatioY).toInt()
+                if (item.y > screenY) trash.add(item)
+            }
         }
 
         for (item in trash) {
@@ -133,8 +146,9 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
             canvas.drawBitmap(background1.background, background1.x.toFloat(), background1.y.toFloat(), paint)
             canvas.drawBitmap(background2.background, background2.x.toFloat(), background2.y.toFloat(), paint)
 
+
             for (item in tiles) {
-                canvas.drawBitmap(item.getTile(), item.x.toFloat(),  item.y.toFloat(), paint)
+                if (!bFail) canvas.drawBitmap(item.getTile(), item.x.toFloat(),  item.y.toFloat(), paint)
             }
 
             mHolder.unlockCanvasAndPost(canvas)
@@ -229,6 +243,24 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
                     }
                 }
             }
+        }
+    }
+
+    private fun failTile(tile: Tile) {
+        //클릭 안된 타일이 깜빡이게
+        tile.y -= speed
+        for (i in 1..8) {
+            tile.bFail = i % 2 == 1
+            if (mHolder.surface.isValid) {
+                val canvas: Canvas = mHolder.lockCanvas()
+                if (i % 2 == 1) {
+                    canvas.drawBitmap(tile.getTile(), tile.x.toFloat(),  tile.y.toFloat(), paint)
+                } else {
+                    canvas.drawBitmap(tile.getTile(), tile.x.toFloat(),  tile.y.toFloat(), paint)
+                }
+                mHolder.unlockCanvasAndPost(canvas)
+            }
+            Thread.sleep(300)
         }
     }
 
