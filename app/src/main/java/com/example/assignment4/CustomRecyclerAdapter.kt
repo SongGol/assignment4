@@ -48,7 +48,7 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
                     } else {
                         Toast.makeText(itemView.context, "하트가 부족합니다", Toast.LENGTH_SHORT).show()
                     }
-                } else if (coin >= 1000){
+                } else if (!dataSet[adapterPosition].bPurchase && coin >= 1000){
                     coin -= 1000
                     dataSet[adapterPosition].bPurchase = true
                     notifyItemChanged(adapterPosition)

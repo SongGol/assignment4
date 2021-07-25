@@ -3,6 +3,8 @@ package com.example.assignment4
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,6 +20,32 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var customAdapter: CustomRecyclerAdapter
     private lateinit var musicArray: ArrayList<Music>
+    private lateinit var mHandler: Handler
+
+    private var heartCount: Int = 10
+    private var heartTime: Int = 5
+    private var mThread: Thread = Thread() {
+        try {
+            while (true) {
+                Log.d("MainActivity", "check")
+                if (heartTime > 0 && heartCount < 10) {
+                    heartTime--
+                } else {
+                    heartTime = 5
+                    if (heartCount < 10) heartCount++
+                }
+
+                mHandler.post {
+                    binding.heartGetTimeTv.text = "00:0"+heartTime.toString()
+                    binding.heartCountTv.text = heartCount.toString()
+                }
+
+                Thread.sleep(1000)
+            }
+        } catch (e: InterruptedException) {
+            SharedPreferencesManager.putIntValue(this, HEART, heartCount)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,15 +53,19 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        mHandler = Handler(Looper.getMainLooper())
+
         musicArray = SharedPreferencesManager.getObject(this, MUSIC_DATA, initialDataSet())
         customAdapter = CustomRecyclerAdapter(musicArray, binding)
         binding.mainRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.mainRecyclerView.adapter = customAdapter
         binding.mainRecyclerView.addItemDecoration(RecyclerViewDecoration(10))
         //상단 숫자 설정
-        binding.heartCountTv.text = SharedPreferencesManager.getIntValue(this, HEART, 10).toString()
+        heartCount = SharedPreferencesManager.getIntValue(this, HEART)
+        binding.heartCountTv.text = heartCount.toString()
         binding.moneyCountTv.text = SharedPreferencesManager.getIntValue(this, COIN, 0).toString()
-        binding.expRatioTv.text = "55%"
+        binding.expRatioTv.text = "   55%"
+        binding.heartGetTimeTv.text = "00:0"+heartTime.toString()
         //중앙 이미지 회전 애니메이션
         val animation = AnimationUtils.loadAnimation(this, R.anim.rotate)
         binding.mainCoverIv.startAnimation(animation)
@@ -46,10 +78,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.heartAddIv.setOnClickListener {
-            var heart = SharedPreferencesManager.getIntValue(this, HEART, 10)
-            heart += 1
-            binding.heartCountTv.text = heart.toString()
-            SharedPreferencesManager.putIntValue(this, HEART, heart)
+            heartCount++
+            binding.heartCountTv.text = heartCount.toString()
+            SharedPreferencesManager.putIntValue(this, HEART, heartCount)
         }
 
         binding.moneyAddTv.setOnClickListener {
@@ -58,6 +89,8 @@ class MainActivity : AppCompatActivity() {
             binding.moneyCountTv.text = coin.toString()
             SharedPreferencesManager.putIntValue(this, COIN, coin)
         }
+
+        mThread.start()
     }
 
     override fun onRestart() {
@@ -65,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         Log.d("MainActivity", "onRestart()")
         val pos = SharedPreferencesManager.getIntValue(this, GameView.POSITION)
         val mScore = SharedPreferencesManager.getIntValue(this, GameView.SCORE)
-        val heartCount = SharedPreferencesManager.getIntValue(this, HEART)
+        heartCount = SharedPreferencesManager.getIntValue(this, HEART)
         val coin = SharedPreferencesManager.getIntValue(this, COIN)
         binding.heartCountTv.text = heartCount.toString()
         binding.moneyCountTv.text = coin.toString()
@@ -74,6 +107,7 @@ class MainActivity : AppCompatActivity() {
             musicArray[pos].maxScore = mScore
             customAdapter.notifyItemChanged(pos)
         }
+        mThread.start()
     }
 
     private fun initialDataSet() : ArrayList<Music> {
@@ -93,7 +127,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+        Log.d("MainActivity", "onStop()")
 
         SharedPreferencesManager.putObject(this, MUSIC_DATA, musicArray)
+        mThread.interrupt()
     }
 }

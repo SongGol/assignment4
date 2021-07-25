@@ -21,7 +21,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
 
     private var mListener: OnExitListener? = null
     private val startTime: Long = System.currentTimeMillis()
-    private var speed: Int = 10
+    private var speed: Int = 13
     private lateinit var tThread: Thread
     private var isExit = false
     private var isPlaying = false
