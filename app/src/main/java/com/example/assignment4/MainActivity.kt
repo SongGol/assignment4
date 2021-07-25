@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         var heartCount: Int = 10
+        var heartTime: Int = 5
     }
-    private var heartTime: Int = 5
     private var mThread: Thread = Thread() {
         try {
             while (true) {

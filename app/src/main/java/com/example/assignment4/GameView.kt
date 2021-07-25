@@ -27,10 +27,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
     private val startTime: Long = System.currentTimeMillis()
     private var speed: Int = 13
     private lateinit var tThread: Thread
-    private var isExit = false
     private var isPlaying = false
-    private var background1: Background
-    private var background2: Background
     private var pianoBackground: Background
     var mTile: Tile
 
@@ -48,11 +45,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
         screenRatioX = 1080f / screenX
         screenRatioY = 1920f / screenY
 
-        background1 = Background(screenX, screenY, resources, R.drawable.blue_backgound)
-        background2 = Background(screenX, screenY, resources, R.drawable.blue_backgound2)
         pianoBackground = Background(screenX, screenY, resources, R.drawable.ic_piano_tile_background)
-
-        background2.y = screenY
 
         mTile = Tile(res = resources)
         tiles.add(Tile(res = resources))
@@ -118,16 +111,6 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
 
     private fun update() {
         if (!bFail) {
-            background1.y -= (10 * screenRatioY).toInt()
-            background2.y -= (10 * screenRatioY).toInt()
-
-            if (background1.y + background1.background.height < 0) {
-                background1.y = screenY
-            }
-            if (background2.y + background2.background.height < 0) {
-                background2.y = screenY
-            }
-
             mTile.y += (speed * screenRatioY).toInt()
             if (mTile.y > screenY) mTile.y = -mTile.height
 
@@ -146,11 +129,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
     private fun draw() {
         if (mHolder.surface.isValid) {
             val canvas: Canvas = mHolder.lockCanvas()
-
-            //canvas.drawBitmap(background1.background, background1.x.toFloat(), background1.y.toFloat(), paint)
-            //canvas.drawBitmap(background2.background, background2.x.toFloat(), background2.y.toFloat(), paint)
             canvas.drawBitmap(pianoBackground.background, pianoBackground.x.toFloat(), pianoBackground.y.toFloat(), paint)
-
 
             for (item in tiles) {
                 if (!bFail) canvas.drawBitmap(item.getTile(), item.x.toFloat(),  item.y.toFloat(), paint)
@@ -191,16 +170,6 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
     override fun surfaceDestroyed(holder: SurfaceHolder) {
         Log.d("GameView", "SurfaceDestroyed()")
         mThread.bExit = true
-        //mThread.join()
-        /*
-        while(true) {
-            try {
-                mThread.join()
-                break
-            } catch (e: Exception) {
-                Log.d("GameView surfaceDestroyed", e.toString())
-            }
-        }*/
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
@@ -208,23 +177,6 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
         if (mThread != null) {
             Log.d("GameView", "surfaceChanged()")
         }
-    }
-
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return super.onTouchEvent(event)
-        Log.d("GameView onTouchEvent()", event?.action.toString())
-
-        if (event?.action == MotionEvent.ACTION_BUTTON_PRESS) {
-            Log.d("GameView onTouchEvent()", "button pressed")
-        }
-
-        if (event?.action == MotionEvent.ACTION_DOWN) {
-            synchronized(mHolder) {
-                //tiles.add(Tile(5.0f, 5.0f))
-            }
-            true
-        }
-        false
     }
 
     inner class GameThread() : Thread() {
