@@ -30,6 +30,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
     private var isPlaying = false
     private var background1: Background
     private var background2: Background
+    private var pianoBackground: Background
     var mTile: Tile
 
     companion object {
@@ -48,6 +49,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
 
         background1 = Background(screenX, screenY, resources, R.drawable.blue_backgound)
         background2 = Background(screenX, screenY, resources, R.drawable.blue_backgound2)
+        pianoBackground = Background(screenX, screenY, resources, R.drawable.ic_piano_tile_background)
 
         background2.y = screenY
 
@@ -143,8 +145,9 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
         if (mHolder.surface.isValid) {
             val canvas: Canvas = mHolder.lockCanvas()
 
-            canvas.drawBitmap(background1.background, background1.x.toFloat(), background1.y.toFloat(), paint)
-            canvas.drawBitmap(background2.background, background2.x.toFloat(), background2.y.toFloat(), paint)
+            //canvas.drawBitmap(background1.background, background1.x.toFloat(), background1.y.toFloat(), paint)
+            //canvas.drawBitmap(background2.background, background2.x.toFloat(), background2.y.toFloat(), paint)
+            canvas.drawBitmap(pianoBackground.background, pianoBackground.x.toFloat(), pianoBackground.y.toFloat(), paint)
 
 
             for (item in tiles) {

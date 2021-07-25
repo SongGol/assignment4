@@ -10,7 +10,7 @@
         android:id="@+id/game_frame_lo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/game_background"/>
+        android:background="@drawable/ic_piano_tile_background"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/game_constraint_lo"

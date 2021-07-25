@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainRecyclerView.adapter = customAdapter
         binding.mainRecyclerView.addItemDecoration(RecyclerViewDecoration(10))
         //상단 숫자 설정
-        heartCount = SharedPreferencesManager.getIntValue(this, HEART)
+        heartCount = SharedPreferencesManager.getIntValue(this, HEART, 0)
         binding.heartCountTv.text = heartCount.toString()
         binding.moneyCountTv.text = SharedPreferencesManager.getIntValue(this, COIN, 0).toString()
         binding.expRatioTv.text = "   55%"
