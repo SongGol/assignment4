@@ -10,7 +10,18 @@
         android:id="@+id/game_frame_lo"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/ic_piano_tile_background"/>
+        android:background="@drawable/ic_piano_tile_background">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/game_center_tv"
+            android:textSize="50sp"
+            android:textColor="#FFD700"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="3"/>
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/game_constraint_lo"
@@ -19,13 +30,13 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/game_pause_iv"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="7dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_pause" />
+            app:srcCompat="@drawable/ic_pause2" />
 
         <LinearLayout
             android:id="@+id/lo_one"

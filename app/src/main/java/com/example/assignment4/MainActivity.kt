@@ -22,7 +22,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var musicArray: ArrayList<Music>
     private lateinit var mHandler: Handler
 
-    private var heartCount: Int = 10
+    companion object {
+        var heartCount: Int = 10
+    }
     private var heartTime: Int = 5
     private var mThread: Thread = Thread() {
         try {
@@ -126,11 +128,15 @@ class MainActivity : AppCompatActivity() {
         return default
     }
 
+    override fun onPause() {
+        super.onPause()
+        mThread.interrupt()
+    }
+
     override fun onStop() {
         super.onStop()
         Log.d("MainActivity", "onStop()")
 
         SharedPreferencesManager.putObject(this, MUSIC_DATA, musicArray)
-        mThread.interrupt()
     }
 }

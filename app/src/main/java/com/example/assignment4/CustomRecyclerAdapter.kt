@@ -33,14 +33,14 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
         init {
             binding.songPriceTv.setOnClickListener {
                 Log.d("Custom Adapter", "button clicked")
-                val heartCount = SharedPreferencesManager.getIntValue(itemView.context, HEART, 10)
                 var coin = SharedPreferencesManager.getIntValue(itemView.context, COIN)
                 if (dataSet[adapterPosition].bPurchase) {
-                    if (heartCount > 0) {
+                    if (MainActivity.heartCount > 0) {
                         SharedPreferencesManager.putIntValue(itemView.context, GameView.POSITION, adapterPosition)
                         SharedPreferencesManager.putIntValue(itemView.context, GameView.SCORE, dataSet[adapterPosition].maxScore)
                         SharedPreferencesManager.putStrValue(itemView.context, GameView.NAME, dataSet[adapterPosition].title)
-                        SharedPreferencesManager.putIntValue(itemView.context, HEART, heartCount)
+                        MainActivity.heartCount--
+                        SharedPreferencesManager.putIntValue(itemView.context, HEART, MainActivity.heartCount)
 
                         val intent = Intent(itemView.context, GameActivity::class.java)
                         intent.putExtra(MusicService.MKEY, dataSet[adapterPosition].title)

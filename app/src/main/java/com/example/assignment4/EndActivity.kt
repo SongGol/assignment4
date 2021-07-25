@@ -35,6 +35,7 @@ class EndActivity : AppCompatActivity() {
             }
         } catch (e: InterruptedException) {
             SharedPreferencesManager.putIntValue(this, HEART, heartCount)
+            Log.d("EndActivity interrupt", heartCount.toString())
         }
     }
 
@@ -58,8 +59,8 @@ class EndActivity : AppCompatActivity() {
         binding.resultCoinTv.text = String.format(resources.getString(R.string.result_coin_tv, score * 10))
 
         //상단 숫자 설정
-        heartCount = SharedPreferencesManager.getIntValue(this, HEART, 10)
-        Log.d("EndActivity heartCount", heartCount.toString())
+        heartCount = SharedPreferencesManager.getIntValue(this, HEART)
+        Log.d("EndActivity onCreate heartCount", heartCount.toString())
         binding.heartCountTv.text = heartCount.toString()
         binding.moneyCountTv.text = SharedPreferencesManager.getIntValue(this, COIN, 0).toString()
         binding.expRatioTv.text = "    55%"
@@ -118,6 +119,5 @@ class EndActivity : AppCompatActivity() {
         SharedPreferencesManager.putIntValue(this, GameView.SCORE, max)
         val coin = SharedPreferencesManager.getIntValue(this, COIN)
         SharedPreferencesManager.putIntValue(this, COIN, coin + score * 10)
-        SharedPreferencesManager.getIntValue(this, HEART, heartCount)
     }
 }

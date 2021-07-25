@@ -11,11 +11,12 @@ import android.os.Looper
 import android.util.Log
 import android.view.*
 import android.widget.ImageView
+import android.widget.TextView
 import java.util.*
 import kotlin.collections.ArrayList
 
 class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0) : SurfaceView(mContext) , SurfaceHolder.Callback, Runnable {
-    private val mHolder = holder
+    private val mHolder: SurfaceHolder = holder
     private lateinit var mThread: GameThread
     var tiles = ArrayList<Tile>()
     var trash = ArrayList<Tile>()
@@ -58,6 +59,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
     }
 
     override fun run() {
+        Log.d("GameView", "run()")
         while (isPlaying) {
             if (tiles[tiles.size - 1].y > 0) {
                 when (Random().nextInt(10)) {
