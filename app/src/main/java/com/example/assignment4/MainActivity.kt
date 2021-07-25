@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assignment4.databinding.ActivityMainBinding
@@ -33,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         binding.heartCountTv.text = SharedPreferencesManager.getIntValue(this, HEART, 10).toString()
         binding.moneyCountTv.text = SharedPreferencesManager.getIntValue(this, COIN, 0).toString()
         binding.expRatioTv.text = "55%"
+        //중앙 이미지 회전 애니메이션
+        val animation = AnimationUtils.loadAnimation(this, R.anim.rotate)
+        binding.mainCoverIv.startAnimation(animation)
 
         binding.mainBonusCoinIv.setOnClickListener {
             var coin: Int = SharedPreferencesManager.getIntValue(this, COIN, 0)
