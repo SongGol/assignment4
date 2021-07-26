@@ -82,6 +82,9 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
             binding.titleCoverIv.setImageResource(data.draw)
 
             binding.songFavoriteIv.setImageResource(if (data.bHeart) R.drawable.ic_heart_selected else R.drawable.ic_heart_default)
+            binding.songStarOneIv.setImageResource(R.drawable.ic_star_grey)
+            binding.songStarTwoIv.setImageResource(R.drawable.ic_star_grey)
+            binding.songStarThreeIv.setImageResource(R.drawable.ic_star_grey)
             if (data.bPurchase)  {
                 binding.songPriceCoinIv.setImageResource(0)
                 binding.songPriceTv.text = "시작"
