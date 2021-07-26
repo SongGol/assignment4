@@ -38,41 +38,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_pause2" />
 
-        <LinearLayout
-            android:id="@+id/lo_one"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/grey_border"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/lo_two"/>
-
-        <LinearLayout
-            android:id="@+id/lo_two"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/grey_border"
-            app:layout_constraintStart_toEndOf="@id/lo_one"
-            app:layout_constraintEnd_toStartOf="@id/lo_three"/>
-
-        <LinearLayout
-            android:id="@+id/lo_three"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/grey_border"
-            app:layout_constraintStart_toEndOf="@id/lo_two"
-            app:layout_constraintEnd_toStartOf="@id/lo_four"/>
-
-        <LinearLayout
-            android:id="@+id/lo_four"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:background="@drawable/grey_border"
-            app:layout_constraintStart_toEndOf="@id/lo_three"
-            app:layout_constraintEnd_toEndOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/game_score_tv"
