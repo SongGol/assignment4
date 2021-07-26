@@ -221,6 +221,37 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
         }
     }
 
+    fun clickWrong(posX: Int?, posY: Int?) {
+        var tileClicked = Tile(res = resources, type = 3)
+        var tileFail = Tile(res = resources, type = 3)
+        if (posX != null) {
+            if (posX < screenX / 4) {
+                tileClicked = Tile(res = resources)
+                tileFail = Tile(res = resources)
+            } else if (screenX / 4 <= posX && posX < screenX / 2) {
+                tileClicked = Tile(res = resources, type = 1)
+                tileFail = Tile(res = resources, type = 1)
+            } else if (screenX / 2 <= posX && posX < screenX * 3 / 4) {
+                tileClicked = Tile(res = resources, type = 2)
+                tileFail = Tile(res = resources, type = 2)
+            }
+        }
+
+        tileFail.bFail = true
+        for (i in 1..8) {
+            if (mHolder.surface.isValid) {
+                val canvas: Canvas = mHolder.lockCanvas()
+                if (i % 2 == 1) {
+                    canvas.drawBitmap(tileClicked.getTile(), tileClicked.x.toFloat(),  tileClicked.y.toFloat(), paint)
+                } else {
+                    canvas.drawBitmap(tileFail.getTile(), tileFail.x.toFloat(),  tileFail.y.toFloat(), paint)
+                }
+                mHolder.unlockCanvasAndPost(canvas)
+            }
+            Thread.sleep(300)
+        }
+    }
+
     interface OnExitListener {
         fun onExitSet()
     }

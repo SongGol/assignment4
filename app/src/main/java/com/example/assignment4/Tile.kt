@@ -52,6 +52,9 @@ class Tile(var x: Int = 0, var y: Int = 0, res: Resources, type: Int = 0) {
         if (!isClicked && !bFail) {
             return defaultTile
         }
+        if (bFail) {
+            return failTile
+        }
         return clickedTile
     }
 

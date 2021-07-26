@@ -68,26 +68,31 @@ class GameActivity : AppCompatActivity(){
                 if (action == MotionEvent.ACTION_DOWN) {   //처음 눌렸을 때
                     Log.d("손가락 눌림","$curX, $curY")
                     var bTileCheck = false
-                    for (item in gameView.tiles) {
+                    for (index in 0..(gameView.tiles.size - 1)) {
+                        val item = gameView.tiles[index]
                         if (item.isTouchIn(curX?.toInt(), curY?.toInt())) {
                             if (!item.isClicked) {
+                                //score++
+                                //mHandler.post{
+                                //    binding.gameScoreTv.text = score.toString()
+                                //}
+                            }
+                            if (item == gameView.tiles[0] ||
+                                (gameView.tiles[index - 1].y != gameView.tiles[index].y && gameView.tiles[index - 1].isClicked) ||
+                                (gameView.tiles[index - 1].y == gameView.tiles[index].y && gameView.tiles[index - 2].isClicked)) {
                                 score++
                                 mHandler.post{
                                     binding.gameScoreTv.text = score.toString()
                                 }
+                                item.isClicked = true
+                                bTileCheck = true
                             }
-                            item.isClicked = true
-                            bTileCheck = true
                         }
                     }
                     //타일이 아닌 곳 터치
                     if (!bTileCheck) {
-                        Thread() {
-                            for (i in 1..5) {
-
-                                Thread.sleep(500)
-                            }
-                        }.start()
+                        //gameView.clickWrong(curX?.toInt(), curY?.toInt())
+                        //gameView.pause()
                     }
                 } else if (action == MotionEvent.ACTION_MOVE) {    //누르고 움직였을 때
                     //Log.d("손가락 움직임", "$curX, $curY")
