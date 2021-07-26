@@ -14,6 +14,7 @@ import com.example.assignment4.databinding.RecyclerviewItemBinding
 
 class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: ActivityMainBinding) : RecyclerView.Adapter<CustomRecyclerAdapter.ViewHolder>(){
     private lateinit var binding: RecyclerviewItemBinding
+    private var mListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomRecyclerAdapter.ViewHolder {
         binding = RecyclerviewItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -31,6 +32,15 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
     inner class ViewHolder(private val binding: RecyclerviewItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         init {
+            itemView.setOnClickListener {
+                val pos = adapterPosition
+                if (pos != RecyclerView.NO_POSITION) {
+                    if (mListener != null) {
+                        mListener!!.onItemClick(it, pos)
+                    }
+                }
+            }
+
             binding.songPriceTv.setOnClickListener {
                 Log.d("Custom Adapter", "button clicked")
                 var coin = SharedPreferencesManager.getIntValue(itemView.context, COIN)
@@ -51,7 +61,8 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
                 } else if (!dataSet[adapterPosition].bPurchase && coin >= 1000){
                     coin -= 1000
                     dataSet[adapterPosition].bPurchase = true
-                    notifyItemChanged(adapterPosition)
+                    //notifyItemChanged(adapterPosition)
+                    notifyDataSetChanged()
                     mainBinding.moneyCountTv.text = coin.toString()
                     SharedPreferencesManager.putIntValue(itemView.context, COIN, coin)
                 } else {
@@ -74,22 +85,32 @@ class CustomRecyclerAdapter(var dataSet: ArrayList<Music>, val mainBinding: Acti
             if (data.bPurchase)  {
                 binding.songPriceCoinIv.setImageResource(0)
                 binding.songPriceTv.text = "시작"
+
+                if (data.maxScore > 10) binding.songStarOneIv.setImageResource(R.drawable.ic_start_color)
+                if (data.maxScore > 20) binding.songStarTwoIv.setImageResource(R.drawable.ic_start_color)
+                if (data.maxScore > 30) binding.songStarThreeIv.setImageResource(R.drawable.ic_start_color)
+                if (data.maxScore > 40)  {
+                    binding.songStarOneIv.setImageResource(R.drawable.ic_crawn_color)
+                    binding.songStarTwoIv.setImageResource(R.drawable.ic_crown_grey)
+                    binding.songStarThreeIv.setImageResource(R.drawable.ic_crown_grey)
+                }
+                if (data.maxScore > 50) binding.songStarTwoIv.setImageResource(R.drawable.ic_crawn_color)
+                if (data.maxScore > 60) binding.songStarThreeIv.setImageResource(R.drawable.ic_crawn_color)
             } else {
                 binding.songPriceCoinIv.setImageResource(R.drawable.ic_money)
                 binding.songPriceTv.text = "     X"+data.price.toString()
             }
 
-            if (data.maxScore > 10) binding.songStarOneIv.setImageResource(R.drawable.ic_start_color)
-            if (data.maxScore > 20) binding.songStarTwoIv.setImageResource(R.drawable.ic_start_color)
-            if (data.maxScore > 30) binding.songStarThreeIv.setImageResource(R.drawable.ic_start_color)
-            if (data.maxScore > 40)  {
-                binding.songStarOneIv.setImageResource(R.drawable.ic_crawn_color)
-                binding.songStarTwoIv.setImageResource(R.drawable.ic_crown_grey)
-                binding.songStarThreeIv.setImageResource(R.drawable.ic_crown_grey)
-            }
-            if (data.maxScore > 50) binding.songStarTwoIv.setImageResource(R.drawable.ic_crawn_color)
-            if (data.maxScore > 60) binding.songStarThreeIv.setImageResource(R.drawable.ic_crawn_color)
+
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(v: View, position: Int)
+    }
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        mListener = listener
     }
 }
 

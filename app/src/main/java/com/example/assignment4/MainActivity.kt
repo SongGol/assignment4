@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.assignment4.databinding.ActivityMainBinding
@@ -60,6 +62,37 @@ class MainActivity : AppCompatActivity() {
 
         musicArray = SharedPreferencesManager.getObject(this, MUSIC_DATA, initialDataSet())
         customAdapter = CustomRecyclerAdapter(musicArray, binding)
+        /*
+        customAdapter.setOnItemClickListener(object: CustomRecyclerAdapter.OnItemClickListener{
+            override fun onItemClick(v: View, position: Int) {
+                    var coin = SharedPreferencesManager.getIntValue(this@MainActivity, COIN)
+                    if (musicArray[position].bPurchase) {
+                        if (MainActivity.heartCount > 0) {
+                            SharedPreferencesManager.putIntValue(this@MainActivity, GameView.POSITION, position)
+                            SharedPreferencesManager.putIntValue(this@MainActivity, GameView.SCORE, musicArray[position].maxScore)
+                            SharedPreferencesManager.putStrValue(this@MainActivity, GameView.NAME, musicArray[position].title)
+                            MainActivity.heartCount--
+                            SharedPreferencesManager.putIntValue(this@MainActivity, HEART, MainActivity.heartCount)
+
+                            val intent = Intent(this@MainActivity, GameActivity::class.java)
+                            intent.putExtra(MusicService.MKEY, musicArray[position].title)
+                            startActivity(intent)
+                        } else {
+                            Toast.makeText(this@MainActivity, "하트가 부족합니다", Toast.LENGTH_SHORT).show()
+                        }
+                    } else if (!musicArray[position].bPurchase && coin >= 1000){
+                        coin -= 1000
+                        musicArray[position].bPurchase = true
+                        customAdapter.notifyItemChanged(position)
+                        binding.moneyCountTv.text = coin.toString()
+                        SharedPreferencesManager.putIntValue(this@MainActivity, COIN, coin)
+                    } else {
+                        Toast.makeText(this@MainActivity, "코인이 부족합니다", Toast.LENGTH_SHORT).show()
+                    }
+
+            }
+        })*/
+
         binding.mainRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.mainRecyclerView.adapter = customAdapter
         binding.mainRecyclerView.addItemDecoration(RecyclerViewDecoration(10))
