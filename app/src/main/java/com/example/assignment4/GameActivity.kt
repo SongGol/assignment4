@@ -158,6 +158,8 @@ class GameActivity : AppCompatActivity(){
         super.onResume()
         Log.d("GameActivity", "onResume()")
         gameView.resume()
+
+
     }
 
     override fun onBackPressed() {

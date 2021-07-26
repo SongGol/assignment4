@@ -77,6 +77,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
                 isPlaying = false
                 mListener?.onExitSet()
 
+                MusicService.pause()
                 //타일 색상 변환
                 bFail = true
                 failTile(tiles[0])
@@ -90,6 +91,7 @@ class GameView(var mContext: Context, var screenX: Int = 0, var screenY: Int = 0
                 isPlaying = false
                 mListener?.onExitSet()
 
+                MusicService.pause()
                 bFail = true
                 failTile(tiles[1])
 
